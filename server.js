@@ -1,24 +1,27 @@
-// ====== Required packages ===== //
+// Dependencies
 var bodyParser = require("body-parser");
 var express = require("express");
 var exphbs = require("express-handlebars");
+var mongoose = require("mongoose");
 
+mongoose.Promise = global.Promise;
 
-// Set PORT
-var port = process.env.PORT || 4000;
-
-// App will run with express for routing
+// Initialize Express
 var app = express();
+var port = process.env.PORT || 4000;
 
 // Static js file
 app.use(express.static("public"));
 
 // Body-parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Use main handlebars as the default
+// Setup handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// Routes
+require("./controllers/scraper_controller.js")(app);
 
 // Listener when server is started
 app.listen(port, function() {
