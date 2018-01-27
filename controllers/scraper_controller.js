@@ -26,11 +26,11 @@ app.get('/scraped', (req, res) => {
     request('https://www.npr.org/sections/politics', (error, response, html) => {
         // console.log(html);
         var $ = cheerio.load(html);
-        $("h2").each(function (i, element) {
+        $(".item-info").each(function (i, element) {
             articles.push({
-                title: $(this).children().text(),
-                link: $(this).children().attr("href"),
-                summary: $(this).children(".teaser").attr("href")
+                title: $(this).children(".title").text(),
+                link: $(this).children(".title").children("a").attr("href"),
+                summary: $(this).children(".teaser").text()
             });
         });
         res.render("index", { articles });        

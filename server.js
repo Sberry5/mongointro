@@ -10,6 +10,12 @@ mongoose.Promise = global.Promise;
 var app = express();
 var port = process.env.PORT || 4000;
 
+// Database setup with Mongo
+// mongoose.Promise = Promise;
+// mongoose.connect("mongodb://localhost/articleSaver", {
+//   useMongoClient: true
+// });
+
 // Static js file
 app.use(express.static("public"));
 
