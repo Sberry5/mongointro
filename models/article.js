@@ -8,16 +8,13 @@ var Schema = mongoose.Schema;
 var articleSchema = new Schema({
     title: {
         type: String,
-        required: true
     },
 
     link: {
         type: String,
-        required: true
     },
     summary: {
         type: String,
-        require: true
     },
     notes: [{ cnote: String, articleId: Schema.Types.ObjectId }],
     saved: Boolean,

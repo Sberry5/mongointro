@@ -9,47 +9,34 @@ mongoose.Promise = Promise;
 mongoose.Promise = Promise;
 
 // Export the routes
-
 module.exports = function (app) {
-// mongoose.connect("mongodb://localhost/week18Populater", {
-//   useMongoClient: true
+
+// GET route to render scraped articles page
+// app.get("/", function(req, res) {
+//     //Article.find({}).sort('+time').exec(
+//         function(err, docs) {
+//             res.render("index", { articles: docs });
+//         });
 // });
 
 
-// GET route to render scraped articles page
-    app.get("/", function(req, res) {
-        Article.find({}).sort('+time').exec(
-            function(err, docs) {
-                res.render("index", { articles: docs });
+// Scraping route
+app.get('/scraped', (req, res) => {
+    var articles = [];
+    request('https://www.npr.org/sections/politics', (error, response, html) => {
+        // console.log(html);
+        var $ = cheerio.load(html);
+        $("h2").each(function (i, element) {
+            articles.push({
+                title: $(this).children().text(),
+                link: $(this).children().attr("href"),
+                summary: $(this).children(".teaser").attr("href")
             });
         });
-
-app.get("/scraped", function (req, res) {
-    var articles = [];
-    var promises = [];
-    // Load the html
-    request("https://wodwell.com/wods/", (function (error, response, html) {    
-    var $ = cheerio.load(html);
-
-    $(".wod").each(function (i, element) {
-        var title = $(this).children(".wod-title").text();
-        var summary = $(this).children(".wod-workout");
-        var link = $(this).children("a").attr("href");
-
-        articles.push({ title: title, link: link, summary: summary });
-        console.log(error);
+        res.render("index", { articles });        
         console.log(articles);
     });
-    for (var i = 0; i < articles.length; i++) {
-        promises.push(saveArticle(articles[i].title, articles[i].link, articles[i].summary));
-    }
-    Promise.all(promises).then(function() {
-        res.redirect("/");
-
-        });
-    }));
-    console.log(promises);
 });
 
-// Close route function
+// Close routes function
 }
