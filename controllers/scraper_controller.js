@@ -15,7 +15,7 @@ module.exports = function (app) {
 // app.get("/", function(req, res) {
 //     //Article.find({}).sort('+time').exec(
 //         function(err, docs) {
-//             res.render("index", { articles: docs });
+//             res.render("index", { articles });
 //         });
 // });
 
