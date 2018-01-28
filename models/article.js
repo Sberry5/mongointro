@@ -6,18 +6,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var articleSchema = new Schema({
-    title: {
-        type: String,
-    },
-
-    link: {
-        type: String,
-    },
-    summary: {
-        type: String,
-    },
-    notes: [{ cnote: String, articleId: Schema.Types.ObjectId }],
-    saved: Boolean,
+    title: String,
+    link: String,
+    summary: String,
+    comments: [{ comment: String, articleId: Schema.Types.ObjectId }],
     time: { type: Date, default: Date.now }
 });
 

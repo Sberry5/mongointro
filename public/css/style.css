@@ -1,16 +1,21 @@
-    /* Remove rounded borders and increase the bottom margin */ 
-    .navbar {
-        margin-bottom: 50px;
-        border-radius: 0;
-      }
+/* Add background image to page */   
+body {
+  background-image: ("/images/news.png");
+}
+
+/* Remove rounded borders and increase the bottom margin */ 
+.navbar {
+  margin-bottom: 50px;
+  border-radius: 0;
+}
       
-      /* Remove bottom margin */ 
-       .jumbotron {
-        margin-bottom: 0;
-      }
+/* Remove bottom margin */ 
+.jumbotron {
+  margin-bottom: 0;
+}
      
-      /* Add a gray background color and padding to the footer */
-      footer {
-        background-color: #f2f2f2;
-        padding: 25px;
-      }
+/* Add a gray background color and padding to the footer */
+footer {
+  background-color: #f2f2f2;
+  padding: 25px;
+}

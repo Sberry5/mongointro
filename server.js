@@ -4,6 +4,11 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
 
+// Require models
+// var Note = require("./models/note.js");
+// var Article = require("./models/article.js");
+
+// Access ES6 promises for mongoose
 mongoose.Promise = global.Promise;
 
 // Initialize Express
@@ -12,7 +17,7 @@ var port = process.env.PORT || 4000;
 
 // Database setup with Mongo
 // mongoose.Promise = Promise;
-// mongoose.connect("mongodb://localhost/articleSaver", {
+// mongoose.connect("mongodb://localhost/mongoHeadlines", {
 //   useMongoClient: true
 // });
 

@@ -11,17 +11,9 @@ mongoose.Promise = Promise;
 // Export the routes
 module.exports = function (app) {
 
-// GET route to render scraped articles page
-// app.get("/", function(req, res) {
-//     //Article.find({}).sort('+time').exec(
-//         function(err, docs) {
-//             res.render("index", { articles });
-//         });
-// });
-
-
-// Scraping route
-app.get('/scraped', (req, res) => {
+// GET scraping/home route
+app.get('/', (req, res) => {
+    var dbPromises = [];
     var articles = [];
     request('https://www.npr.org/sections/politics', (error, response, html) => {
         // console.log(html);
@@ -36,6 +28,35 @@ app.get('/scraped', (req, res) => {
         res.render("index", { articles });        
         console.log(articles);
     });
+});
+
+// Function to save article to the DB
+$("#saveButton").click(function saveArticleToDB(title, link, summary) {
+    return new Promise(function(resolve, reject) {
+        Article.find({ "title": title },
+            function(err, docs) {
+                if (docs.length === 0) {
+                    var newArticle = new Article({
+                        title: title,
+                        link: link,
+                        summary: summary,
+                        note: [],
+                        saved: false
+                    });
+                    newArticle.save(function(err, newArticles) {
+                        if (err) return console.error(err);
+                    });
+                }
+            });
+    });
+});
+
+// GET route to render saved articles from DB to saved articles page
+app.get("/saved", function(req, res) {
+    Article.find({ "saved": true }).sort('+time').exec(
+        function(err, docs) {
+            res.render("saved", { savedArticles: docs });
+        });
 });
 
 // Close routes function
