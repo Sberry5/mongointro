@@ -33,6 +33,6 @@ First full-stack application using mongoDB.
 
 ***
 
-#### **Authors**
+#### **Author**
 
 [Shannon Berry-Heller](https://github.com/Sberry5)
