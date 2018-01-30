@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="/saved" onclick="location.href='/saved/'">Saved Articles</a></li>
+                <li><a href="/savedArticles" onclick="location.href='/saved/'">Saved Articles</a></li>
                 <li><a href="/saved/notes">Article Notes</a></li>
             </ul>
         </div>
@@ -34,7 +34,7 @@
         <button type="button" class="btn btn-default" id="saveButton">Save Article</button>
             <div class="form-group">
             <label>Note:</label>       
-            <input type="password" class="form-control" placeholder="Enter article note">
+            <input class="form-control" placeholder="Enter article note" action="/api/article/save/:id"></input>
             </div>
             </div>
         <br>

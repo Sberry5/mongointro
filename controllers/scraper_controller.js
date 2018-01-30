@@ -8,11 +8,10 @@ mongoose.Promise = global.Promise;
 // Export the routes
 module.exports = function (app) {
 
-// GET scraped articles to DB and render to user
+// GET scraped articles to DB and render from DB to user
 app.get('/', (req, res) => {
     var articles = [];
     request('https://www.npr.org/sections/politics', (error, response, html) => {
-        // console.log(html);
         var $ = cheerio.load(html);
         $(".item-info").each(function (i, element) {
                 var title = $(this).children(".title").text();
@@ -34,7 +33,7 @@ app.get('/', (req, res) => {
 
             });
 
-                // Grab every doc in the Articles array
+                // Render acrticles from DB once scraped
                 Article.find()
                     .then( (articles) => {
                         console.log(articles);
@@ -50,8 +49,8 @@ app.get('/', (req, res) => {
 
 
 
-// Function to save article to the DB
-$("#saveButton").click(function saveArticleToDB(title, link, summary) {
+// View saved articles
+app.get('/savedArticles', function saveArticleToDB (title, link, summary) {
     return new Promise(function(resolve, reject) {
         Article.find({ "title": title },
             function(err, docs) {
@@ -61,7 +60,7 @@ $("#saveButton").click(function saveArticleToDB(title, link, summary) {
                         link: link,
                         summary: summary,
                         note: [],
-                        saved: false
+                        saved: true
                     });
                     newArticle.save(function(err, newArticles) {
                         if (err) return console.error(err);
@@ -79,9 +78,16 @@ app.get("/saved", (req, res) => {
         });
 });
 
+
+// Route to update article saved status to true
+app.put("/api/article/save/:id", function(req, res) {
+    Article.update({ _id: req.body.id }, { $set: { saved: true } }, function(err, docs) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect("/saved");
+    });
+});
+
 // Close routes function
 };
-
-
-// for initial scraping view
-//res.render("index", { articles });

@@ -9,7 +9,7 @@ var articleSchema = new Schema({
     title: { type: String, unique: true },
     link: String,
     summary: String,
-    comments: [{ comment: String, articleId: Schema.Types.ObjectId }],
+    notes: [{ note: String, articleId: Schema.Types.ObjectId }],
     saved: Boolean,
     time: { type: Date, default: Date.now }
 });
