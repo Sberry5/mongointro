@@ -2,7 +2,7 @@
 // Dependencies
 var mongoose = require("mongoose");
 
-// Schema
+// Schema (does not allow duplicates based on article title)
 var Schema = mongoose.Schema;
 
 var articleSchema = new Schema({

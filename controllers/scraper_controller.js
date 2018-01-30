@@ -4,12 +4,11 @@ var request = require("request");
 var mongoose = require("mongoose");
 var Article = require("../models/Article.js");
 mongoose.Promise = global.Promise;
-//var app = express();
 
 // Export the routes
 module.exports = function (app) {
 
-// GET scraped articles
+// GET scraped articles to DB and render to user
 app.get('/', (req, res) => {
     var articles = [];
     request('https://www.npr.org/sections/politics', (error, response, html) => {
@@ -52,25 +51,25 @@ app.get('/', (req, res) => {
 
 
 // Function to save article to the DB
-//$("#saveButton").click(function saveArticleToDB(title, link, summary) {
-//     return new Promise(function(resolve, reject) {
-//         Article.find({ "title": title },
-//             function(err, docs) {
-//                 if (docs.length === 0) {
-//                     var newArticle = new Article({
-//                         title: title,
-//                         link: link,
-//                         summary: summary,
-//                         note: [],
-//                         saved: false
-//                     });
-//                     newArticle.save(function(err, newArticles) {
-//                         if (err) return console.error(err);
-//                     });
-//                 }
-//             });
-//     });
-// });
+$("#saveButton").click(function saveArticleToDB(title, link, summary) {
+    return new Promise(function(resolve, reject) {
+        Article.find({ "title": title },
+            function(err, docs) {
+                if (docs.length === 0) {
+                    var newArticle = new Article({
+                        title: title,
+                        link: link,
+                        summary: summary,
+                        note: [],
+                        saved: false
+                    });
+                    newArticle.save(function(err, newArticles) {
+                        if (err) return console.error(err);
+                    });
+                }
+            });
+    });
+});
 
 // GET route to render saved articles from DB to saved articles page
 app.get("/saved", (req, res) => {
