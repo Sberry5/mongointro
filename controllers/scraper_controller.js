@@ -3,32 +3,53 @@ var cheerio = require("cheerio");
 var request = require("request");
 var mongoose = require("mongoose");
 var Article = require("../models/Article.js");
-mongoose.Promise = Promise;
+mongoose.Promise = global.Promise;
 //var app = express();
-
-mongoose.Promise = Promise;
 
 // Export the routes
 module.exports = function (app) {
 
 // GET scraped articles
 app.get('/', (req, res) => {
-    var dbPromises = [];
     var articles = [];
     request('https://www.npr.org/sections/politics', (error, response, html) => {
         // console.log(html);
         var $ = cheerio.load(html);
         $(".item-info").each(function (i, element) {
-                title: $(this).children(".title").text();
-                link: $(this).children(".title").children("a").attr("href");
-                summary: $(this).children(".teaser").text();
-                dbPromises.push({title: title, link: link, summary: summary});
-                articles.push({title: title, link: link, summary: summary});
+                var title = $(this).children(".title").text();
+                var link = $(this).children(".title").children("a").attr("href");
+                var summary = $(this).children(".teaser").text();
+                if(title && link && summary) {
+                    var articleFormat = {title, link, summary};
+    
+                    // Creat model instance of article in DB
+                    Article
+                        .create(articleFormat)
+                        .then( () => {
+                        console.log("Articles to DB");
+                        })
+                        .catch( (err) => {
+                            console.log("Error returned from DB:", err);
+                        });    
+                }
+
             });
-        });
-        res.render("index", { articles });        
+
+                // Grab every doc in the Articles array
+                Article.find()
+                    .then( (articles) => {
+                        console.log(articles);
+                        res.render("index", { articles });
+                    })
+                    .catch( (err) => {
+                        res.send("Error returning articles. Please try again");
+                    });
+
+        });        
         console.log(articles);
     });
+
+
 
 // Function to save article to the DB
 //$("#saveButton").click(function saveArticleToDB(title, link, summary) {
@@ -61,3 +82,7 @@ app.get("/saved", (req, res) => {
 
 // Close routes function
 };
+
+
+// for initial scraping view
+//res.render("index", { articles });
