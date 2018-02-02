@@ -49,23 +49,7 @@ app.get('/', (req, res) => {
         console.log(articles);
     });
 
-// View saved articles
-app.get('/savedArticles', function saveArticleToDB (title, link, summary) {
-    if (saved = true) {
-         // Render acrticles from DB once scraped
-            Article.find()
-            .then( (articles) => {
-            //var thisId = $(this).attr("data-id");
-            console.log(articles);
-            res.render("index", { articles });
-            })
-            .catch( (err) => {
-                res.send("Error returning articles. Please try again");
-        });
-    }
-});
-
-// GET route to render saved articles from DB to saved articles page
+// GET route to render saved articles
 app.get("/saved", (req, res) => {
     Article.find({ "saved": true }).sort('+time').exec(
         function(err, docs) {
@@ -76,6 +60,16 @@ app.get("/saved", (req, res) => {
 // Route to update article saved status to true
 app.put("/api/article/save/:id", function(req, res) {
     Article.update({ _id: req.body.id }, { $set: { saved: true } }, function(err, docs) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect("/saved");
+    });
+});
+
+// Route to update article saved status to false
+app.put("/api/article/remove/:id", function(req, res) {
+    Article.update({ _id: req.body.id }, { $set: { saved: false } }, function(err, docs) {
         if (err) {
             console.log(err);
         }
