@@ -1,5 +1,8 @@
+$(document).ready(function () {
+
 // Function to save article to the DB
-$("#saveButton").click(function saveArticleToDB(title, link, summary) {
+$("#saveButton").click(function (title, link, summary) {
+    console.log("save button clicked");
     return new Promise(function(resolve, reject) {
         Article.find({ "title": title },
             function(err, docs) {
@@ -8,13 +11,20 @@ $("#saveButton").click(function saveArticleToDB(title, link, summary) {
                         title: title,
                         link: link,
                         summary: summary,
-                        note: [],
+                        note: $("#userNote").val(),
                         saved: true
                     });
                     newArticle.save(function(err, newArticles) {
                         if (err) return console.error(err);
                     });
-                }
+                };
             });
     });
+});
+
+$("#saveButton").click(function () {
+    var thisId = $(this).attr("data-id");
+    
+};
+
 });

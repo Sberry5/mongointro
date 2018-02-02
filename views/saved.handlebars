@@ -1,0 +1,47 @@
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>NPR Politics News Scraper - Saved Articles</h1>
+        <p><a class="btn btn-dark btn-lg" href="/scrape" role="button">Scrape New Articles</a></p>
+    </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Politics News Scraper</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/savedArticles" onclick="location.href='/saved/'">Saved Articles</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{{#each articles}}
+<div class="container">    
+  <div class="row">
+    <div "panel panel-default">
+      <div class="panel panel-primary">
+        </div><a class="panel-heading title" target="_blank" href={{this.link}}>{{this.title}}</a></div>
+        <div class="panel-body"><p>{{this.summary}}</p></div>
+        <div class="panel-body"><p>{{this.note}}</p></div>
+            </div>
+        <br>
+        <br>
+    {{/if}}
+    {{/each}}
+    {{#unless comments}}
+        <div class="panel panel-default">
+            <div class="panel-body">No notes to display.</div>
+        </div>
+    {{/unless}}
+        </div>
+    </div>
+{{/each}}
+

@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
                 var title = $(this).children(".title").text();
                 var link = $(this).children(".title").children("a").attr("href");
                 var summary = $(this).children(".teaser").text();
+                var note = [];
                 if(title && link && summary) {
                     var articleFormat = {title, link, summary};
     
@@ -36,6 +37,7 @@ app.get('/', (req, res) => {
                 // Render acrticles from DB once scraped
                 Article.find()
                     .then( (articles) => {
+                        //var thisId = $(this).attr("data-id");
                         console.log(articles);
                         res.render("index", { articles });
                     })
@@ -47,27 +49,20 @@ app.get('/', (req, res) => {
         console.log(articles);
     });
 
-
-
 // View saved articles
 app.get('/savedArticles', function saveArticleToDB (title, link, summary) {
-    return new Promise(function(resolve, reject) {
-        Article.find({ "title": title },
-            function(err, docs) {
-                if (docs.length === 0) {
-                    var newArticle = new Article({
-                        title: title,
-                        link: link,
-                        summary: summary,
-                        note: [],
-                        saved: true
-                    });
-                    newArticle.save(function(err, newArticles) {
-                        if (err) return console.error(err);
-                    });
-                }
-            });
-    });
+    if (saved = true) {
+         // Render acrticles from DB once scraped
+            Article.find()
+            .then( (articles) => {
+            //var thisId = $(this).attr("data-id");
+            console.log(articles);
+            res.render("index", { articles });
+            })
+            .catch( (err) => {
+                res.send("Error returning articles. Please try again");
+        });
+    }
 });
 
 // GET route to render saved articles from DB to saved articles page
@@ -77,7 +72,6 @@ app.get("/saved", (req, res) => {
             res.render("saved", { savedArticles: docs });
         });
 });
-
 
 // Route to update article saved status to true
 app.put("/api/article/save/:id", function(req, res) {
