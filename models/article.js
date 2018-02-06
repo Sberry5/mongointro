@@ -9,13 +9,13 @@ var articleSchema = new Schema({
     title: { type: String, unique: true },
     link: String,
     summary: String,
-    notes: [{ note: String, articleId: Schema.Types.ObjectId }],
     saved: Boolean,
-    time: { type: Date, default: Date.now }
+    time: { type: Date, default: Date.now },
+    note: [{ type: Schema.Types.ObjectId, ref: 'Note'}]
 });
 
 // Model
-var Article = mongoose.model("Article", articleSchema);
+var Article = mongoose.model('Article', articleSchema);
 
 // Export model
 module.exports = Article;

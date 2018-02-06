@@ -1,9 +1,11 @@
-
+{{!-- Header --}}
 <div class="container">
     <div class="jumbotron">
         <h1>NPR Politics News Scraper - Saved Articles</h1>
         <p><a class="btn btn-dark btn-lg" href="/scrape" role="button">Scrape New Articles</a></p>
     </div>
+
+{{!-- Navigation Bar --}}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -29,6 +31,8 @@
     <div "panel panel-default">
       <div class="panel panel-primary">
         </div><a class="panel-heading title" target="_blank" href={{this.link}}>{{this.title}}</a></div>
+        <form action="/api/article/save/:{{this.id}}?_method=PUT" method="POST">
+        <input type="hidden" name="id" value={{this.id}}></form>
         <div class="panel-body"><p>{{this.summary}}</p></div>
         <div class="panel-body"><p>{{this.note}}</p></div>
             </div>
@@ -36,7 +40,7 @@
         <br>
     {{/if}}
     {{/each}}
-    {{#unless comments}}
+    {{#unless notes}}
         <div class="panel panel-default">
             <div class="panel-body">No notes to display.</div>
         </div>

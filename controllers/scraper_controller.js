@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
                 var link = $(this).children(".title").children("a").attr("href");
                 var summary = $(this).children(".teaser").text();
                 var note = [];
+                var saved = false;
                 if(title && link && summary) {
                     var articleFormat = {title, link, summary};
     
@@ -49,23 +50,32 @@ app.get('/', (req, res) => {
         console.log(articles);
     });
 
-// GET route to render saved articles
-app.get("/saved", (req, res) => {
+
+    // GET route to render saved articles
+app.get("/savedArticles", (req, res) => {
     Article.find({ "saved": true }).sort('+time').exec(
         function(err, docs) {
             res.render("saved", { savedArticles: docs });
         });
 });
 
-// Route to update article saved status to true
-app.put("/api/article/save/:id", function(req, res) {
-    Article.update({ _id: req.body.id }, { $set: { saved: true } }, function(err, docs) {
-        if (err) {
-            console.log(err);
-        }
-        res.redirect("/saved");
+
+// Save an article
+app.post("/savedArticles/:id", function(req, res) {
+    // Use mongo find and update function
+    Article.findOne({ "_id": req.body.id }, { "saved": true })
+    .then(function(err, doc) {
+      // Log any errors
+      if (err) {
+        console.log("Error occured while saving:", err);
+      }
+      // Log result
+      else {
+        console.log("doc: ", doc);
+      }
     });
-});
+  });
+
 
 // Route to update article saved status to false
 app.put("/api/article/remove/:id", function(req, res) {
@@ -73,7 +83,7 @@ app.put("/api/article/remove/:id", function(req, res) {
         if (err) {
             console.log(err);
         }
-        res.redirect("/saved");
+        res.redirect("/savedArticles");
     });
 });
 
