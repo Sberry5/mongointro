@@ -6,12 +6,20 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var articleSchema = new Schema({
-    title: { type: String, unique: true },
+    title: { type: String, 
+            unique: true 
+        },
     link: String,
     summary: String,
-    saved: Boolean,
-    time: { type: Date, default: Date.now },
-    note: [{ type: Schema.Types.ObjectId, ref: 'Note'}]
+    saved: { type: Boolean, 
+            default: 0 
+        },
+    time: { type: Date, 
+            default: Date.now 
+        },
+    note: [{ type: Schema.Types.ObjectId, 
+        ref: 'Note'
+    }]
 });
 
 // Model

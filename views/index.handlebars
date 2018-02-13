@@ -24,21 +24,21 @@
     </div>
 </nav>
 {{#each articles}}
-<div class="container">    
+<article class="container articles">    
   <div class="row">
     <div "panel panel-default">
       <div class="panel panel-primary">
         </div><a class="panel-heading title" target="_blank" href={{this.link}}>{{this.title}}</a></div>
         <div class="panel-body"><p>{{this.summary}}</p></div>
-        <button type="button" class="btn btn-default" id="saveButton">Save Article</button>
+        <button type="button" class="btn btn-default saveButton">Save Article</button>
             <div class="form-group">
             <label>Note:</label>       
-            <input id="userNote" class="form-control" placeholder="Add a note to the article" action="/api/article/save/:id"></input>
+            <input class="userNote" class="form-control" placeholder="Add a note to the article" action="/api/article/save/:id"></input>
             </div>
             </div>
         <br>
         <br>
         </div>
-    </div>
+    </article>
 {{/each}}
 
