@@ -4,8 +4,8 @@ $(document).ready(function () {
 $('body').on('click', '.saveButton', function(event) {
     console.log("Save button function triggered");
     var newNote = $(this).closest('article').find('.userNote').val().trim();
-    var articleID = $(this).closest('article').find('._id.value').val();
-    console.log('articleID', articleID);
+    var articleID = $(this).closest('article').find('.articleID').val();
+    console.log(articleID);
     console.log('new note', newNote);
     // PUT request to add a note
     $.ajax({
