@@ -51,19 +51,27 @@ app.get('/', (req, res) => {
     });
 
 
-    // GET route to render saved articles
+// GET route to render saved articles
 app.get("/savedArticles", (req, res) => {
-    Article.find({ "saved": true }).sort('+time').exec(
-        function(err, docs) {
-            res.render("saved", { savedArticles: docs });
-        });
+    Article
+    .find({ "saved": true })
+    // .sort({time: -1})
+    .then((docs) => {
+        console.log("Here are the docs", docs);
+        res.json({docs});
+    })
+    .catch((err)=> {
+        console.log(err)
+    })
 });
 
 
 // Save an article
 app.post("/savedArticles/:id", function(req, res) {
+    console.log('What gets sent to route');
+    console.log(req);
     // Use mongo find and update function
-    Article.findOne({ "_id": req.body.id }, { "saved": true })
+    Article.findOneAndUpdate({ "_id": id }, { $set: { saved: true } })
     .then(function(err, doc) {
       // Log any errors
       if (err) {
@@ -78,14 +86,14 @@ app.post("/savedArticles/:id", function(req, res) {
 
 
 // Route to update article saved status to false
-app.put("/api/article/remove/:id", function(req, res) {
-    Article.update({ _id: req.body.id }, { $set: { saved: false } }, function(err, docs) {
-        if (err) {
-            console.log(err);
-        }
-        res.redirect("/savedArticles");
-    });
-});
+// app.put("/api/article/remove/:id", function(req, res) {
+//     Article.update({ _id: req.body.id }, { $set: { saved: false } }, function(err, docs) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         res.redirect("/savedArticles");
+//     });
+// });
 
 // Close routes function
 };

@@ -10,14 +10,16 @@ $('body').on('click', '.saveButton', function(event) {
     // PUT request to add a note
     $.ajax({
       method: 'PUT',
-      url: '/savedArticles' + articleID,
+      url: '/savedArticles/' + articleID,
       data: {
     // Value from input
-        note: $('.userNote').val()
+        _id: articleID,
+        note: newNote,
       }
     }).done(function(data) {
     // Log the response
-    console.log('data: ', data);
+    console.log('data: ');
+    console.log(data);
       });
     });
 });

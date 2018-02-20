@@ -30,7 +30,8 @@
       <div class="panel panel-primary">
         </div><a class="panel-heading title" target="_blank" href={{this.link}}>{{this.title}}</a></div>
         <div class="panel-body"><p>{{this.summary}}</p></div>
-        <input class="articleID" type="hidden" name="id" value={{this._id}}>
+        <form action="/savedArticles/:{{this.id}}" method="PUT"></form>
+        <input class="articleID" type="hidden" name="id" value={{this._id}}></input>
         <button type="button" class="btn btn-default saveButton">Save Article</button>
             <div class="form-group">
             <label>Note:</label>       
