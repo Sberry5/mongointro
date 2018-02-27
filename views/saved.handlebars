@@ -35,11 +35,10 @@
         <input type="hidden" name="id" value={{this.id}}></form>
         <div class="panel-body"><p>{{this.summary}}</p></div>
         <div class="panel-body"><p>{{this.note}}</p></div>
-            </div>
+        {{/each}}
         <br>
         <br>
-    {{/if}}
-    {{/each}}
+{{#each}}
     {{#unless notes}}
         <div class="panel panel-default">
             <div class="panel-body">No notes to display.</div>
