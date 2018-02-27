@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
                 Article.find()
                     .then( (articles) => {
                         //var thisId = $(this).attr("data-id");
-                        console.log(articles);
+                        // console.log(articles);
                         res.render("index", { articles });
                     })
                     .catch( (err) => {
@@ -67,11 +67,10 @@ app.get("/savedArticles", (req, res) => {
 
 
 // Save an article
-app.post("/savedArticles/:id", function(req, res) {
-    console.log('What gets sent to route');
-    console.log(req);
+app.put("/savedArticles/:id", function(req, res) {
+    console.log(`LOOK HERE!! ${req.body.note}`)
     // Use mongo find and update function
-    Article.findOneAndUpdate({ "_id": id }, { $set: { saved: true } })
+    Article.findOneAndUpdate({ "_id": req.body._id }, { $set: { saved: true } })
     .then(function(err, doc) {
       // Log any errors
       if (err) {
