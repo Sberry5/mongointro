@@ -17,7 +17,7 @@ var articleSchema = new Schema({
     time: { type: Date, 
             default: Date.now 
         },
-    note: [{ type: Schema.Types.ObjectId, 
+    note: [{ type: Schema.Types.String, 
         ref: 'Note'
     }]
 });

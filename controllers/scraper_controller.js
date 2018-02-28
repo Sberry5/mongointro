@@ -38,8 +38,8 @@ app.get('/', (req, res) => {
                 // Render acrticles from DB once scraped
                 Article.find()
                     .then( (articles) => {
-                        //var thisId = $(this).attr("data-id");
-                        // console.log(articles);
+                        var thisId = $(this).attr("data-id");
+                        console.log(articles);
                         res.render("index", { articles });
                     })
                     .catch( (err) => {
@@ -57,8 +57,7 @@ app.get("/savedArticles", (req, res) => {
     .find({ "saved": true })
     // .sort({time: -1})
     .then((docs) => {
-        console.log("Here are the docs", docs);
-        res.json({docs});
+        res.render("saved", { savedArticles: docs });
     })
     .catch((err)=> {
         console.log(err)
@@ -67,32 +66,12 @@ app.get("/savedArticles", (req, res) => {
 
 
 // Save an article
-app.put("/savedArticles/:id", function(req, res) {
-    console.log(`LOOK HERE!! ${req.body.note}`)
-    // Use mongo find and update function
-    Article.findOneAndUpdate({ "_id": req.body._id }, { $set: { saved: true } })
-    .then(function(err, doc) {
-      // Log any errors
-      if (err) {
-        console.log("Error occured while saving:", err);
-      }
-      // Log result
-      else {
-        console.log("doc: ", doc);
-      }
-    });
-  });
-
-
-// Route to update article saved status to false
-// app.put("/api/article/remove/:id", function(req, res) {
-//     Article.update({ _id: req.body.id }, { $set: { saved: false } }, function(err, docs) {
-//         if (err) {
-//             console.log(err);
-//         }
-//         res.redirect("/savedArticles");
-//     });
-// });
-
-// Close routes function
+app.put("/savedArticles/:id", (req, res) => {
+    Article.findOneAndUpdate({"_id": req.body._id}, {$set: {"note": req.body.note, saved: true}})
+        .then((document) => {
+            console.log('your document saved scucessfully')
+        }, (err) => {
+            console.log(`you had an error ${err}`)
+        })
+});
 };

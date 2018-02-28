@@ -19,7 +19,7 @@ $('body').on('click', '.saveButton', function(event) {
     }).done(function(data) {
     // Log the response
     console.log('data: ');
-    console.log(data);
+    // console.log(data);
       });
     });
 });

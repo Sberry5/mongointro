@@ -2,7 +2,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1>NPR Politics News Scraper</h1>
-        <p><a class="btn btn-dark btn-lg" href="/" role="button">Scrape New Articles</a></p>
+        <p><a class="btn btn-dark btn-lg" href="/savedArticles" role="button">Scrape New Articles</a></p>
     </div>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -34,8 +34,8 @@
         <input class="articleID" type="hidden" name="id" value={{this._id}}></input>
         <button type="button" class="btn btn-default saveButton">Save Article</button>
             <div class="form-group">
-            <label>Note:</label>       
-            <input class="userNote form-control" placeholder="Add a note to the article" action="/api/article/save/:id"></input>
+            <label>Note:</label>
+            <input class="userNote form-control" placeholder="Add a note to the article" action="/article/save/:id"></input>
             </div>
             </div>
         <br>
