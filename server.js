@@ -21,7 +21,7 @@ var port = process.env.PORT || 4000;
 
 // Database setup with Mongo
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/mongoHeadlines");
+mongoose.connect("mongodb://heroku_hml19n7q:kk6e9311u8pmrn1q8ddit9qt31@ds251518.mlab.com:51518/heroku_hml19n7q");
 var db = mongoose.connection;
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
