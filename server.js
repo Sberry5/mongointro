@@ -8,6 +8,8 @@ var mongoose = require("mongoose");
 // Require models
 var Article = require("./models/Article.js");
 
+var mySong = '12345'
+
 // Scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
