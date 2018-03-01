@@ -6,7 +6,7 @@ var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
 
 // Require models
-var Article = require("./models/Article.js");
+var Article = require("./models/Article");
 
 var mySong = '12345'
 
