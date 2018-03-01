@@ -2,7 +2,7 @@
 var cheerio = require("cheerio");
 var request = require("request");
 var mongoose = require("mongoose");
-var Article = require("../models/Article.js");
+var Article = require("../models/Article");
 mongoose.Promise = global.Promise;
 
 // Export the routes
