@@ -7,6 +7,7 @@ $('body').on('click', '.saveButton', function(event) {
     var articleID = $(this).closest('article').find('.articleID').val();
     console.log(articleID);
     console.log('new note', newNote);
+    alert("Article Saved");
     // PUT request to add a note
     $.ajax({
       method: 'PUT',
